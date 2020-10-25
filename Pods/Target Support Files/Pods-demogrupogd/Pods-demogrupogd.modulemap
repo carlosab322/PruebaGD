@@ -1,0 +1,6 @@
+framework module Pods_demogrupogd {
+  umbrella header "Pods-demogrupogd-umbrella.h"
+
+  export *
+  module * { export * }
+}
