@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 import SVProgressHUD
 import SDWebImage
-class UserViewController : BaseViewController, UISearchBarDelegate{
+class UserViewController : BaseViewController, UITextFieldDelegate{
     var listUser:[UserResponse]=[]
     let presenter = UserViewPresenter()
     @IBOutlet var tableView: UITableView!
     var searchActive : Bool = false
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBar: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.attachView(view: self)
@@ -28,38 +28,43 @@ class UserViewController : BaseViewController, UISearchBarDelegate{
             .instantiateViewController(withIdentifier: "usersList")
             as! UserViewController
     }
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-           searchActive = true;
-       }
-
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-           searchActive = false;
-       }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-           searchActive = false;
-       }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-           searchActive = false;
-       }
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
-          
-           self.tableView.reloadData()
-       }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if(!(textField.text?.isEmpty ?? false)){
+            presenter.crearListadoBuscar(nombre: textField.text ?? "")
+            }
+        else {
+            presenter.crearListado()
+        }
+        self.tableView.reloadData()
+        textField.resignFirstResponder()
+            return true
+        }
 }
 extension UserViewController: UserView {
     func verListaUsuario(usuario: [UserResponse]) {
         listUser = usuario
         tableView.reloadData()
     }
+    
+    func verListaUsuarioSearch(usuario: UserResponse) {
+        listUser = []
+        listUser.append(usuario)
+        tableView.reloadData()
+    }
+    func verRepos(repos: [ReposResponse]) {
+        
+        let verRepos = ReposViewController.instantiate()
+        verRepos.titulo = Constants.user
+        verRepos.listRepos = repos
+        self.navigationController?.pushViewController(verRepos, animated: false)
+    }
 }
 extension UserViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if listUser.count == 0 {
-        tableView.setEmptyView(title: "You don't have any user.", message: "Check again.")
+            tableView.setEmptyView(title: "You don't have any user.", message: "Check again.", ishidden: false)
+        } else {
+            tableView.setEmptyView(title: "", message: "", ishidden: true)
         }
         return listUser.count
     }
@@ -67,7 +72,7 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier:
             "cellUser", for: indexPath) as? UserCellView
         let user = listUser[indexPath.row]
-        cell?.title?.text = user.login
+        cell?.title?.text = user.login ?? ""
         cell?.subTile?.text = user.nodeID ?? "" + user.type!
         cell?.selectionStyle = .none
             cell?.logo?.sd_setImage(with: URL(string: user.avatarURL ?? ""), placeholderImage: nil, options: .allowInvalidSSLCertificates)
@@ -78,6 +83,7 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = listUser[indexPath.row]
         Constants.user = user.login ?? ""
+        presenter.reposListado()
         
     }
    

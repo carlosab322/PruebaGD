@@ -22,6 +22,28 @@ class DmServices: MessageHelper {
             //implementación para la finalización de la accion
         })
     }
+    func reposList(tipo: ServiceAction,
+                     success: @escaping ([ReposResponse]) -> Void,
+                     fail: @escaping (_ result: String?) -> Void, finally : @escaping () -> Void) {
+        let base = BaseRequest()
+        DmServices.shared.callService(service: tipo, request: base,
+                                    success: { (response: [ReposResponse]) in
+                                        success(response)
+        }, fail: { (response) in fail("") }, finally: {
+            //implementación para la finalización de la accion
+        })
+    }
+    func user(tipo: String,
+                     success: @escaping (UserResponse) -> Void,
+                     fail: @escaping (_ result: String?) -> Void, finally : @escaping () -> Void) {
+        let base = BaseRequest()
+        DmServices.shared.callServiceUni(service: tipo, request: base,
+                                    success: { (response: UserResponse) in
+                                        success(response)
+        }, fail: { (response) in fail("") }, finally: {
+            //implementación para la finalización de la accion
+        })
+    }
     /// permite ejecutar peticiones a la capa de servicio
     ///
     /// - Parameters:
@@ -50,6 +72,53 @@ class DmServices: MessageHelper {
                         switch info.result {
                         case .success:
                             let responseObject = try decoder.decode([T].self, from: e)
+                            success(responseObject)
+                            break
+                        case .failure(let error):
+                            let errorResponseBase = self.procesarError(error: error)
+                            fail(errorResponseBase)
+                            break
+                        }
+                    }
+                    catch {
+                        print("Error info: \(error)")
+                        let errorResponseBase = BaseResponse()
+                        fail(errorResponseBase)
+                    }
+                    finally()
+                    
+                   
+                }
+            }
+    }
+    /// permite ejecutar peticiones a la capa de servicio en objeto
+    ///
+    /// - Parameters:
+    ///   - service: servicio a ejecutar
+    ///   - request: modelo de tipo BaseRequest
+    ///   - success: acción a ejecutar en caso de exito
+    ///   - fail: acción a ejecutar en caso de falla
+    ///   - finally: acción que se ejecutara al finalizar el llamado al servicio
+    func callServiceUni<T: BaseResponse, E: Encodable>(service: String,
+                                                    request: E, success: @escaping (T) -> Void,
+                                                    fail: @escaping (_ result: BaseResponse) -> Void,
+                                                    finally : @escaping () -> Void) {
+        let urlSave = Constants.baseUrl
+        let urlRaw = urlSave + Constants.commandUrlSearch
+            let url = URL(string: urlRaw)
+            guard let mUrl = url else { return }
+            var urlRequest = URLRequest(url: mUrl)
+            urlRequest.httpMethod = "GET"
+            urlRequest.timeoutInterval = Constants.timeOut
+        let request = AF.request(urlRequest)
+            request.responseJSON { (info) in
+                if  let e = info.data {
+                    do{
+                    print("Respuesta \(String(data: e, encoding: .utf8) ?? "")")
+                        let decoder = JSONDecoder()
+                        switch info.result {
+                        case .success:
+                            let responseObject = try decoder.decode(T.self, from: e)
                             success(responseObject)
                             break
                         case .failure(let error):

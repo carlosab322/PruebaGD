@@ -10,7 +10,9 @@ struct ServiceData: RawRepresentable {
     let rawValue: ServiceAction
     //user
     static let usersGeneral = ServiceAction(action: "", name: "user")
-    static let usersGit = ServiceAction(action: Constants.commandUrl, name: "user")
+    //buscar
+    static let usersGit = ServiceAction(action: Constants.commandUrlSearch, name: "user")
+    static let repos = ServiceAction(action: Constants.commandUrl, name: "repos")
 }
 
 class ServiceAction {

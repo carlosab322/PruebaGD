@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBarItem.appearance().setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: Constants.colorSecundario], for: .selected)
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = Constants.colorSecundario
-        UINavigationBar.appearance().barTintColor = Constants.colorFondo
+        UINavigationBar.appearance().barTintColor = Constants.colorPrimario
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).tintColor =
             .white
         UINavigationBar.appearance().tintColor = Constants.colorSecundario

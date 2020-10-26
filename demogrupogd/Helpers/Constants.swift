@@ -13,7 +13,7 @@ enum Constants{
     static let timeOut = 50.0
     static let errorGeneral = "error in"
     static var commandUrlSearch = "/" + user + ""
-    static var commandUrl = "/" + user + "/repos/"
+    static var commandUrl = "/" + user + "/repos"
     static var colorPrimario = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     // 2 # F6F7FC
       static var colorFondo = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)

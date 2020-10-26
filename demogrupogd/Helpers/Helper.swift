@@ -107,8 +107,9 @@ extension UIImageView {
 }
 
 extension UITableView {
-func setEmptyView(title: String, message: String) {
+    func setEmptyView(title: String, message: String, ishidden:Bool) {
         let emptyView = UIView(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height))
+        emptyView.isHidden = ishidden
         let titleLabel = UILabel()
         let messageLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

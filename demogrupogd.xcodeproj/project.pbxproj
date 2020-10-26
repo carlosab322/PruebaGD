@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		176999342546AD9B00B1A2DA /* ReposResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176999332546AD9B00B1A2DA /* ReposResponse.swift */; };
+		1769998125471A8300B1A2DA /* ReposViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1769998025471A8300B1A2DA /* ReposViewController.swift */; };
 		17CE7AB22544EF6D0009BD80 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CE7AB12544EF6D0009BD80 /* Constants.swift */; };
 		17CE7AB72544F20B0009BD80 /* DmServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CE7AB62544F20B0009BD80 /* DmServices.swift */; };
 		17CE7AC4254546DA0009BD80 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CE7AC3254546DA0009BD80 /* BaseResponse.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		16788B9451DE37CCE3756C64 /* Pods-demogrupogdTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demogrupogdTests.release.xcconfig"; path = "Target Support Files/Pods-demogrupogdTests/Pods-demogrupogdTests.release.xcconfig"; sourceTree = "<group>"; };
 		176999332546AD9B00B1A2DA /* ReposResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposResponse.swift; sourceTree = "<group>"; };
+		1769998025471A8300B1A2DA /* ReposViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposViewController.swift; sourceTree = "<group>"; };
 		17CE7AB12544EF6D0009BD80 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		17CE7AB62544F20B0009BD80 /* DmServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmServices.swift; sourceTree = "<group>"; };
 		17CE7AC3254546DA0009BD80 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			children = (
 				17CE7AF125455CAE0009BD80 /* UserViewController.swift */,
 				17D7F0FF2545D7790046A1A4 /* UserViewPresenter.swift */,
+				1769998025471A8300B1A2DA /* ReposViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				17D237BF254412150041883A /* ViewController.swift in Sources */,
 				17CE7AF225455CAE0009BD80 /* UserViewController.swift in Sources */,
 				17D7F1162545D85D0046A1A4 /* Helper.swift in Sources */,
+				1769998125471A8300B1A2DA /* ReposViewController.swift in Sources */,
 				17CE7AC9254549F80009BD80 /* ServiceAction.swift in Sources */,
 				17CE7ACE25454F6B0009BD80 /* ErrorConnection.swift in Sources */,
 				17D237BB254412150041883A /* AppDelegate.swift in Sources */,

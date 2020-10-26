@@ -27,12 +27,26 @@ class UserViewPresenter {
             //implementación para la finalización de la accion
         })
     }
-    func crearListadoRepos() {
-        self.view?.showWait("Obteniendo información de repositorios")
-        DmServices.shared.userList(tipo: ServiceData.usersGit,
+    func reposListado() {
+        self.view?.showWait("Obteniendo información de repos")
+        DmServices.shared.reposList(tipo: ServiceData.repos,
                                     success: { (response) in
             self.view?.dismissMsg()
-            self.view?.verListaUsuario(usuario: response)
+            self.view?.verRepos(repos: response)
+        }, fail: { (msj) in
+               self.view?.showError(msj)
+        }, finally: {
+            //implementación para la finalización de la accion
+        })
+    }
+    func crearListadoBuscar(nombre: String) {
+        Constants.user = nombre 
+        Constants.commandUrlSearch =  "/" + Constants.user + ""
+        self.view?.showWait("Obteniendo información de busqueda")
+        DmServices.shared.user(tipo: Constants.commandUrlSearch,
+                                    success: { (response) in
+            self.view?.dismissMsg()
+            self.view?.verListaUsuarioSearch(usuario: response)
         }, fail: { (msj) in
                self.view?.showError(msj)
         }, finally: {
@@ -42,5 +56,8 @@ class UserViewPresenter {
 }
 protocol UserView: BaseView {
     func verListaUsuario(usuario:[UserResponse])
+    func verRepos(repos:[ReposResponse])
+
+    func verListaUsuarioSearch(usuario:UserResponse)
 }
 
