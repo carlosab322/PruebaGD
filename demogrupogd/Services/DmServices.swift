@@ -6,30 +6,18 @@
 //
 import Foundation
 import Alamofire
-class DmServices {
+class DmServices: MessageHelper {
     static let shared = DmServices(); private init() {
         //constructor por defecto
     }
     func userList(tipo: ServiceAction,
-                     action: String,
-                     success: @escaping (User) -> Void,
+                     success: @escaping ([UserResponse]) -> Void,
                      fail: @escaping (_ result: String?) -> Void, finally : @escaping () -> Void) {
         let base = BaseRequest()
         DmServices.shared.callService(service: tipo, request: base,
-                                    success: { (response: UserResponse) in
-                                        let user = User()
-                                        user.login = response.login
-                                        user.id = response.id
-                                        user.nodeID = response.nodeID
-                                        user.avatarURL = response.avatarURL
-                                        user.gravatarID = response.gravatarID
-                                        user.url = response.url
-                                        user.htmlURL = response.htmlURL
-                                        user.followersURL = response.followersURL
-                                        user.followingURL = response.followingURL
-                                        user.avatarURL = response.avatarURL
-                                        user.gistsURL = response.gistsURL
-                                        success(user)
+                                    success: { (response: [UserResponse]) in
+                                      
+                                        success(response)
         }, fail: { (response) in fail("") }, finally: {
             //implementación para la finalización de la accion
         })
@@ -43,7 +31,7 @@ class DmServices {
     ///   - fail: acción a ejecutar en caso de falla
     ///   - finally: acción que se ejecutara al finalizar el llamado al servicio
     func callService<T: BaseResponse, E: Encodable>(service: ServiceAction,
-                                                    request: E, success: @escaping (T) -> Void,
+                                                    request: E, success: @escaping ([T]) -> Void,
                                                     fail: @escaping (_ result: BaseResponse) -> Void,
                                                     finally : @escaping () -> Void) {
         let urlSave = Constants.baseUrl
@@ -61,7 +49,7 @@ class DmServices {
                         let decoder = JSONDecoder()
                         switch info.result {
                         case .success:
-                            let responseObject = try decoder.decode(T.self, from: e)
+                            let responseObject = try decoder.decode([T].self, from: e)
                             success(responseObject)
                             break
                         case .failure(let error):

@@ -20,4 +20,5 @@ class User {
     var receivedEventsURL: String?
     var type: String?
        var siteAdmin: Bool?
+    
 }

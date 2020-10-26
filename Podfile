@@ -11,6 +11,7 @@ target 'demogrupogd' do
   pod 'Alamofire', '~> 5.2'
   pod 'Hero'
   pod 'FittedSheets'
+  pod 'SDWebImage', '~> 5.0'
 
   # Pods for demogrupogd
 

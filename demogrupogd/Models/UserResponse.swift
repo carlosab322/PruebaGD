@@ -49,8 +49,8 @@ class UserResponse: BaseResponse {
             login = try container.decodeIfPresent(String.self, forKey: .login)
             id = try container.decodeIfPresent(Int.self, forKey: .id)
             nodeID = try container.decodeIfPresent(String.self, forKey: .nodeID)
-            avatarURL = try container.decodeIfPresent(String.self, forKey: .gravatarID)
-            gravatarID = try container.decodeIfPresent(String.self, forKey: .login)
+            avatarURL = try container.decodeIfPresent(String.self, forKey: .avatarURL)
+            gravatarID = try container.decodeIfPresent(String.self, forKey: .gravatarID)
             url = try container.decodeIfPresent(String.self, forKey: .url)
             htmlURL = try container.decodeIfPresent(String.self, forKey: .htmlURL)
             followersURL = try container.decodeIfPresent(String.self, forKey: .login)
@@ -62,12 +62,12 @@ class UserResponse: BaseResponse {
             eventsURL = try container.decodeIfPresent(String.self, forKey: .eventsURL)
             receivedEventsURL = try container.decodeIfPresent(String.self, forKey: .receivedEventsURL)
             type = try container.decodeIfPresent(String.self, forKey: .type)
-            login = try container.decodeIfPresent(String.self, forKey: .login)
             siteAdmin = try container.decodeIfPresent(Bool.self, forKey: .siteAdmin)
         } catch {
 
         }
 
     }
+    
 }
 

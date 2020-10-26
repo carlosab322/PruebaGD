@@ -8,7 +8,8 @@
 struct ServiceData: RawRepresentable {
 
     let rawValue: ServiceAction
-    //autenticacion
+    //user
+    static let usersGeneral = ServiceAction(action: "", name: "user")
     static let usersGit = ServiceAction(action: Constants.commandUrl, name: "user")
 }
 
